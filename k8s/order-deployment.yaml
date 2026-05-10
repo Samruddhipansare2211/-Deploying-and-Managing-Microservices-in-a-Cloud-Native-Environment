@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: order-deployment
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: order-service
+
+  template:
+    metadata:
+      labels:
+        app: order-service
+
+    spec:
+      containers:
+        - name: order-container
+
+          image: samruddhi2211/order-service:v1
+
+          ports:
+            - containerPort: 3003
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "64Mi"
+
+            limits:
+              cpu: "200m"
+              memory: "128Mi"
+
+          volumeMounts:
+            - mountPath: "/data"
+              name: order-storage
+
+      volumes:
+        - name: order-storage
+
+          persistentVolumeClaim:
+            claimName: order-pvc
