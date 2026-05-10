@@ -1,36 +1,38 @@
 # Deploying and Managing Microservices in a Cloud-Native Environment using Kubernetes
 
-## 📌 Project Overview
+---
 
-This project demonstrates deployment and management of multiple microservices using Docker and Kubernetes in a cloud-native environment. The project includes:
+# 📌 Project Title
+
+## Deploying and Managing Microservices in a Cloud-Native Environment
+
+---
+
+# 📖 Project Description
+
+This project demonstrates how to deploy and manage microservices using Docker and Kubernetes in a cloud-native environment. The system uses containerized services deployed on a Kubernetes cluster using Minikube. The project focuses on scalability, orchestration, service management, and cloud-native deployment practices.
+
+The architecture contains multiple microservices such as:
 
 - User Service
 - Product Service
 - Order Service
 
-All services are containerized using Docker and deployed using Kubernetes Deployments and Services.
-
-The project also demonstrates:
-
-- Kubernetes Pods
-- Deployments
-- Services
-- Persistent Volumes
-- Persistent Volume Claims
-- Scaling
-- Load Balancing
-- Persistent Storage
+These services are containerized using Docker and managed using Kubernetes Deployments and Services.
 
 ---
 
 # 🎯 Objectives
 
+The objectives of this project are:
+
+- Understand microservices architecture
 - Learn Docker containerization
-- Deploy microservices using Kubernetes
-- Manage Pods and Services
-- Implement Persistent Storage
-- Understand Kubernetes architecture
-- Perform scaling and orchestration
+- Deploy applications using Kubernetes
+- Manage Kubernetes Pods and Services
+- Scale applications dynamically
+- Implement cloud-native deployment practices
+- Implement Persistent Storage using PV and PVC
 
 ---
 
@@ -41,10 +43,10 @@ The project also demonstrates:
 | Docker | Containerization |
 | Kubernetes | Container Orchestration |
 | Minikube | Local Kubernetes Cluster |
-| kubectl | Kubernetes CLI |
-| Docker Hub | Docker Image Repository |
-| VS Code | Development Environment |
-| GitHub | Version Control |
+| kubectl | Kubernetes Command Line Tool |
+| Docker Hub | Image Repository |
+| VS Code | Code Editor |
+| Git & GitHub | Version Control |
 
 ---
 
@@ -64,7 +66,59 @@ microservices-project
 
 ---
 
-# 🔄 Complete Project Workflow
+# ⚙️ Prerequisites
+
+Before starting the project, install the following software:
+
+## 1. Docker Desktop
+
+Used for creating and managing containers.
+
+Verify installation:
+
+```bash
+docker --version
+```
+
+---
+
+## 2. Minikube
+
+Used to run Kubernetes locally.
+
+Verify installation:
+
+```bash
+minikube version
+```
+
+---
+
+## 3. kubectl
+
+Kubernetes command-line tool.
+
+Verify installation:
+
+```bash
+kubectl version --client
+```
+
+---
+
+## 4. Git
+
+Used for version control.
+
+Verify installation:
+
+```bash
+git --version
+```
+
+---
+
+# 🚀 Complete Project Flow
 
 ```text
 Source Code
@@ -79,7 +133,7 @@ Start Minikube Cluster
      ↓
 Create Kubernetes YAML Files
      ↓
-Deploy Services into Kubernetes
+Deploy Applications into Kubernetes
      ↓
 Pods Created
      ↓
@@ -87,51 +141,16 @@ Services Exposed
      ↓
 Persistent Storage Attached
      ↓
-Applications Accessible via Browser
-```
-
----
-
-# ☸️ Kubernetes Architecture
-
-```text
-                    +----------------------+
-                    |      USER            |
-                    +----------+-----------+
-                               |
-                               v
-                 +-----------------------------+
-                 |      Kubernetes Service     |
-                 +-----------------------------+
-                      |         |         |
-                      |         |         |
-                      v         v         v
-
-             +-------------+ +-------------+ +-------------+
-             | User Pod    | | Product Pod | | Order Pod  |
-             +-------------+ +-------------+ +-------------+
-                      |               |               |
-                      |               |               |
-               +---------------------------------------------+
-               |         Kubernetes Cluster (Minikube)       |
-               +---------------------------------------------+
-                                      |
-                                      v
-                         +-------------------------+
-                         | Persistent Volume (PV)  |
-                         +-------------------------+
-                                      |
-                                      v
-                       +-----------------------------+
-                       | Persistent Volume Claim PVC |
-                       +-----------------------------+
+Browser Access
+     ↓
+Scaling and Monitoring
 ```
 
 ---
 
 # 🚀 STEP 1 — Start Kubernetes Cluster
 
-Start Minikube cluster.
+Start the Minikube Kubernetes cluster.
 
 ### Command
 
@@ -284,36 +303,57 @@ k8s
 
 ---
 
-# 🚀 STEP 5 — Kubernetes YAML Architecture
+# 🚀 STEP 5 — Kubernetes Architecture
+
+```text
+                    +----------------------+
+                    |      USER            |
+                    +----------+-----------+
+                               |
+                               v
+                 +-----------------------------+
+                 |      Kubernetes Service     |
+                 +-----------------------------+
+                      |         |         |
+                      |         |         |
+                      v         v         v
+
+             +-------------+ +-------------+ +-------------+
+             | User Pod    | | Product Pod | | Order Pod  |
+             +-------------+ +-------------+ +-------------+
+                      |               |               |
+                      |               |               |
+               +---------------------------------------------+
+               |         Kubernetes Cluster (Minikube)       |
+               +---------------------------------------------+
+                                      |
+                                      v
+                         +-------------------------+
+                         | Persistent Volume (PV)  |
+                         +-------------------------+
+                                      |
+                                      v
+                       +-----------------------------+
+                       | Persistent Volume Claim PVC |
+                       +-----------------------------+
+```
+
+---
+
+# 🚀 STEP 6 — Kubernetes YAML Workflow
 
 ```text
 YAML FILES
     ↓
 Deployments
     ↓
+ReplicaSets
+    ↓
 Pods Created
     ↓
 Services Created
     ↓
 Applications Exposed
-```
-
----
-
-# 🚀 STEP 6 — Deployment & Service Workflow
-
-```text
-Deployment File
-       ↓
-Kubernetes Deployment
-       ↓
-ReplicaSet
-       ↓
-Pods
-       ↓
-Services
-       ↓
-Browser Access
 ```
 
 ---
@@ -418,18 +458,6 @@ Name:
 ```text
 user-deployment.yaml
 ```
-
----
-
-# Paste YAML
-
-Replace:
-
-```text
-yourdockerhubname
-```
-
-with your Docker Hub username.
 
 ---
 
@@ -944,3 +972,6 @@ This project provides complete hands-on experience with Docker and Kubernetes fo
 # 👩‍💻 Author
 
 ## Samruddhi Pansare
+
+--- change flow of file only remain as it is i used that  
+
