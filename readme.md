@@ -219,17 +219,6 @@ Ready
 
 ---
 
-# 📸 Minikube Started
-
-![Minikube Started](Screenshots/minikube-start.png)
-
----
-
-# 📸 Kubernetes Nodes
-
-![Kubernetes Nodes](Screenshots/kubectl-get-nodes.png)
-
----
 
 # 🚀 STEP 2 — Build Docker Images
 
@@ -285,13 +274,7 @@ docker build -t yourdockerhubname/order-service:v1 .
 docker images
 ```
 
----
 
-# 📸 Docker Images
-
-![Docker Images](Screenshots/docker-images.png)
-
----
 
 # 🚀 STEP 3 — Push Images to Docker Hub
 
@@ -325,13 +308,6 @@ docker push yourdockerhubname/product-service:v1
 docker push yourdockerhubname/order-service:v1
 ```
 
----
-
-# 📸 Docker Push Successful
-
-![Docker Push](Screenshots/docker-push.png)
-
----
 
 # 🚀 STEP 4 — Kubernetes YAML Workflow
 
@@ -401,17 +377,6 @@ Bound
 
 ---
 
-# 📸 Persistent Volume Created
-
-![Persistent Volume](Screenshots/pv-created.png)
-
----
-
-# 📸 Persistent Volume Claim Bound
-
-![Persistent Volume Claim](Screenshots/pvc-bound.png)
-
----
 
 # Deploy Kubernetes Files
 
@@ -422,11 +387,6 @@ kubectl apply -f .
 
 ---
 
-# 📸 Kubernetes Deployments Created
-
-![Deployments](Screenshots/deployments-created.png)
-
----
 
 # 🚀 STEP 7 — Verify Kubernetes Resources
 
@@ -440,11 +400,6 @@ kubectl get pods
 
 ---
 
-# 📸 Running Pods
-
-![Pods Running](Screenshots/get-pods.png)
-
----
 
 # Check Services
 
@@ -452,13 +407,6 @@ kubectl get pods
 kubectl get svc
 ```
 
----
-
-# 📸 Running Services
-
-![Services Running](Screenshots/get-services.png)
-
----
 
 # 🚀 STEP 8 — Access Applications
 
@@ -470,13 +418,6 @@ kubectl get svc
 minikube service user-service --url
 ```
 
----
-
-# 📸 User Service Output
-
-![User Service](Screenshots/user-service-browser.png)
-
----
 
 # PRODUCT SERVICE
 
@@ -484,13 +425,6 @@ minikube service user-service --url
 minikube service product-service --url
 ```
 
----
-
-# 📸 Product Service Output
-
-![Product Service](Screenshots/product-service-browser.png)
-
----
 
 # ORDER SERVICE
 
@@ -498,13 +432,7 @@ minikube service product-service --url
 minikube service order-service --url
 ```
 
----
 
-# 📸 Order Service Output
-
-![Order Service](Screenshots/order-service-browser.png)
-
----
 
 # 🚀 STEP 9 — Test Persistent Storage
 
@@ -518,17 +446,8 @@ kubectl delete pod <order-pod-name>
 
 ---
 
-# 📸 Pod Deleted Successfully
 
-![Pod Deleted](Screenshots/pod-delete.png)
 
----
-
-# 📸 New Pod Created Automatically
-
-![New Pod](Screenshots/new-pod-created.png)
-
----
 
 # Verify Persistence
 
@@ -544,13 +463,7 @@ Expected:
 Order Saved
 ```
 
----
 
-# 📸 Persistent Data Verified
-
-![Persistent Storage](Screenshots/persistent-storage-success.png)
-
----
 
 # 🚀 STEP 10 — Scaling and Monitoring
 
@@ -562,13 +475,6 @@ Order Saved
 kubectl scale deployment product-deployment --replicas=4
 ```
 
----
-
-# 📸 Scaling Output
-
-![Scaling](Screenshots/scaling-output.png)
-
----
 
 # Monitor Logs
 
@@ -576,13 +482,7 @@ kubectl scale deployment product-deployment --replicas=4
 kubectl logs <pod-name>
 ```
 
----
 
-# 📸 Logs Monitoring
-
-![Logs](Screenshots/logs-monitoring.png)
-
----
 
 # 📊 Final Deployment Flow
 
