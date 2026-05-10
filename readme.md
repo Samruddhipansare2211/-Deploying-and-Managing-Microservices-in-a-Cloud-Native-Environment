@@ -1,4 +1,4 @@
-# Deploying and Managing Microservices in a Cloud-Native Environment using Kubernetes
+# 🚀 Deploying and Managing Microservices in a Cloud-Native Environment using Kubernetes
 
 ---
 
@@ -10,29 +10,40 @@
 
 # 📖 Project Description
 
-This project demonstrates how to deploy and manage microservices using Docker and Kubernetes in a cloud-native environment. The system uses containerized services deployed on a Kubernetes cluster using Minikube. The project focuses on scalability, orchestration, service management, and cloud-native deployment practices.
+This project demonstrates deployment and management of multiple microservices using Docker and Kubernetes in a cloud-native environment.
 
-The architecture contains multiple microservices such as:
+The project contains three independent microservices:
 
-- User Service
-- Product Service
-- Order Service
+- 👤 User Service
+- 📦 Product Service
+- 🛒 Order Service
 
-These services are containerized using Docker and managed using Kubernetes Deployments and Services.
+Each service is containerized using Docker and deployed on Kubernetes using:
+
+- Deployments
+- Services
+- Persistent Volumes
+- Persistent Volume Claims
+
+The project demonstrates real-world cloud-native deployment practices including:
+
+- Container orchestration
+- Service networking
+- Persistent storage
+- Pod scaling
+- Kubernetes management
 
 ---
 
 # 🎯 Objectives
 
-The objectives of this project are:
-
-- Understand microservices architecture
 - Learn Docker containerization
-- Deploy applications using Kubernetes
-- Manage Kubernetes Pods and Services
-- Scale applications dynamically
-- Implement cloud-native deployment practices
-- Implement Persistent Storage using PV and PVC
+- Deploy microservices using Kubernetes
+- Understand Kubernetes architecture
+- Manage Pods and Services
+- Implement Persistent Storage
+- Perform scaling and orchestration
+- Understand cloud-native deployment workflow
 
 ---
 
@@ -43,10 +54,11 @@ The objectives of this project are:
 | Docker | Containerization |
 | Kubernetes | Container Orchestration |
 | Minikube | Local Kubernetes Cluster |
-| kubectl | Kubernetes Command Line Tool |
+| kubectl | Kubernetes CLI |
 | Docker Hub | Image Repository |
-| VS Code | Code Editor |
-| Git & GitHub | Version Control |
+| Node.js | Backend Microservices |
+| VS Code | Development Environment |
+| GitHub | Version Control |
 
 ---
 
@@ -55,70 +67,83 @@ The objectives of this project are:
 ```text
 microservices-project
 │
-├── user-service
-├── product-service
-├── order-service
+├── Screenshots
+│
 ├── k8s
+│   ├── order-deployment.yaml
+│   ├── order-service.yaml
+│   ├── product-deployment.yaml
+│   ├── product-service.yaml
+│   ├── user-deployment.yaml
+│   └── user-service.yaml
+│
+├── order-service
+│   ├── node_modules
+│   ├── Dockerfile
+│   ├── package-lock.json
+│   ├── package.json
+│   └── server.js
+│
+├── product-service
+│   ├── node_modules
+│   ├── Dockerfile
+│   ├── package-lock.json
+│   ├── package.json
+│   └── server.js
+│
+├── user-service
+│   ├── node_modules
+│   ├── Dockerfile
+│   ├── package-lock.json
+│   ├── package.json
+│   └── server.js
+│
 ├── pv.yaml
 ├── pvc.yaml
+├── Kubernetes_Microservices_Documentation.docx
 └── README.md
 ```
 
 ---
 
-# ⚙️ Prerequisites
+# ☸️ Kubernetes Architecture
 
-Before starting the project, install the following software:
+```text
+                    +----------------------+
+                    |      USER            |
+                    +----------+-----------+
+                               |
+                               v
+                 +-----------------------------+
+                 |      Kubernetes Service     |
+                 +-----------------------------+
+                      |         |         |
+                      |         |         |
+                      v         v         v
 
-## 1. Docker Desktop
-
-Used for creating and managing containers.
-
-Verify installation:
-
-```bash
-docker --version
+             +-------------+ +-------------+ +-------------+
+             | User Pod    | | Product Pod | | Order Pod  |
+             +-------------+ +-------------+ +-------------+
+                      |               |               |
+                      |               |               |
+               +---------------------------------------------+
+               |         Kubernetes Cluster (Minikube)       |
+               +---------------------------------------------+
+                                      |
+                                      v
+                         +-------------------------+
+                         | Persistent Volume (PV)  |
+                         +-------------------------+
+                                      |
+                                      v
+                       +-----------------------------+
+                       | Persistent Volume Claim PVC |
+                       +-----------------------------+
 ```
 
 ---
 
-## 2. Minikube
-
-Used to run Kubernetes locally.
-
-Verify installation:
-
-```bash
-minikube version
-```
-
----
-
-## 3. kubectl
-
-Kubernetes command-line tool.
-
-Verify installation:
-
-```bash
-kubectl version --client
-```
-
----
-
-## 4. Git
-
-Used for version control.
-
-Verify installation:
-
-```bash
-git --version
-```
-
----
-
-# 🚀 Complete Project Flow
+# 🔄 Complete Project Workflow
 
 ```text
 Source Code
@@ -148,11 +173,23 @@ Scaling and Monitoring
 
 ---
 
+# ⚙️ Prerequisites
+
+Before starting the project, install the following software:
+
+| Software | Purpose |
+|---|---|
+| Docker Desktop | Containerization |
+| Minikube | Kubernetes Cluster |
+| kubectl | Kubernetes CLI |
+| Git | Version Control |
+| VS Code | Code Editor |
+
+---
+
 # 🚀 STEP 1 — Start Kubernetes Cluster
 
-Start the Minikube Kubernetes cluster.
-
-### Command
+Start Minikube cluster.
 
 ```bash
 minikube start
@@ -182,10 +219,15 @@ Ready
 
 ---
 
-# 📸 Screenshot to Add
+# 📸 Minikube Started
 
-- Minikube started successfully
-- Node status
+![Minikube Started](Screenshots/minikube-start.png)
+
+---
+
+# 📸 Kubernetes Nodes
+
+![Kubernetes Nodes](Screenshots/kubectl-get-nodes.png)
 
 ---
 
@@ -196,8 +238,6 @@ Build Docker images for all services.
 ---
 
 # USER SERVICE
-
-Go inside user-service folder.
 
 ```bash
 cd user-service
@@ -247,15 +287,15 @@ docker images
 
 ---
 
-# 📸 Screenshot to Add
+# 📸 Docker Images
 
-- Docker images list
+![Docker Images](Screenshots/docker-images.png)
 
 ---
 
 # 🚀 STEP 3 — Push Images to Docker Hub
 
-Login to Docker Hub.
+Login Docker Hub:
 
 ```bash
 docker login
@@ -287,60 +327,13 @@ docker push yourdockerhubname/order-service:v1
 
 ---
 
-# 📸 Screenshot to Add
+# 📸 Docker Push Successful
 
-- Docker push successful
-
----
-
-# 🚀 STEP 4 — Create Kubernetes Folder
-
-Inside project folder create:
-
-```text
-k8s
-```
+![Docker Push](Screenshots/docker-push.png)
 
 ---
 
-# 🚀 STEP 5 — Kubernetes Architecture
-
-```text
-                    +----------------------+
-                    |      USER            |
-                    +----------+-----------+
-                               |
-                               v
-                 +-----------------------------+
-                 |      Kubernetes Service     |
-                 +-----------------------------+
-                      |         |         |
-                      |         |         |
-                      v         v         v
-
-             +-------------+ +-------------+ +-------------+
-             | User Pod    | | Product Pod | | Order Pod  |
-             +-------------+ +-------------+ +-------------+
-                      |               |               |
-                      |               |               |
-               +---------------------------------------------+
-               |         Kubernetes Cluster (Minikube)       |
-               +---------------------------------------------+
-                                      |
-                                      v
-                         +-------------------------+
-                         | Persistent Volume (PV)  |
-                         +-------------------------+
-                                      |
-                                      v
-                       +-----------------------------+
-                       | Persistent Volume Claim PVC |
-                       +-----------------------------+
-```
-
----
-
-# 🚀 STEP 6 — Kubernetes YAML Workflow
+# 🚀 STEP 4 — Kubernetes YAML Workflow
 
 ```text
 YAML FILES
@@ -358,7 +351,7 @@ Applications Exposed
 
 ---
 
-# 🚀 STEP 7 — Persistent Storage Workflow
+# 🚀 STEP 5 — Persistent Storage Workflow
 
 ```text
 Persistent Volume (PV)
@@ -372,278 +365,7 @@ Data Stored Permanently
 
 ---
 
-# 🚀 STEP 8 — Scaling Workflow
-
-```text
-Before Scaling
-
-Product Pod 1
-
-        ↓
-
-After Scaling
-
-Product Pod 1
-Product Pod 2
-Product Pod 3
-Product Pod 4
-```
-
----
-
-# 🚀 STEP 9 — Kubernetes YAML Files (VERY DETAILED)
-
-Now your Docker images are ready.
-
-Next step is deploying everything into Kubernetes.
-
-You are currently here:
-
-```text
-microservices-project
-```
-
-Folder structure should be:
-
-```text
-microservices-project
-│
-├── user-service
-├── product-service
-├── order-service
-└── k8s
-```
-
----
-
-# STEP 9.1 — Open k8s Folder
-
-In terminal:
-
-```bash
-cd k8s
-```
-
-Now terminal path becomes:
-
-```text
-C:\Users\SAMRUDDHI\microservices-project\k8s
-```
-
----
-
-# STEP 9.2 — Create USER DEPLOYMENT FILE
-
----
-
-# What is Deployment?
-
-Deployment tells Kubernetes:
-
-- which Docker image to run
-- how many containers (replicas)
-- which port application uses
-
----
-
-# Create File
-
-Inside VS Code:
-
-Right click `k8s`
-→ New File
-
-Name:
-
-```text
-user-deployment.yaml
-```
-
----
-
-# Understand This YAML
-
-| Field | Meaning |
-|---|---|
-| kind: Deployment | Creates deployment |
-| replicas | Number of containers |
-| image | Docker Hub image |
-| containerPort | Application port |
-
----
-
-# STEP 9.3 — Create USER SERVICE FILE
-
----
-
-# What is Service?
-
-Service exposes Pods.
-
-Without Service:
-
-- Pods cannot be accessed properly
-
-Service provides:
-
-- networking
-- load balancing
-- stable access
-
----
-
-# Create File
-
-```text
-user-service.yaml
-```
-
----
-
-# Understand This YAML
-
-| Field | Meaning |
-|---|---|
-| selector | Connects service to pods |
-| port | Service port |
-| targetPort | Container port |
-| NodePort | External access |
-
----
-
-# STEP 9.4 — Create PRODUCT DEPLOYMENT
-
-Create:
-
-```text
-product-deployment.yaml
-```
-
----
-
-# Why Resources Section?
-
-Resources are required for:
-
-- autoscaling
-- CPU allocation
-- performance optimization
-
-Without resources:
-
-- HPA may not work correctly
-
----
-
-# STEP 9.5 — Create PRODUCT SERVICE
-
-Create:
-
-```text
-product-service.yaml
-```
-
----
-
-# STEP 9.6 — Create ORDER DEPLOYMENT
-
----
-
-# Why Order Service is Different?
-
-Because it uses:
-
-- Persistent Storage
-- Volume Mounting
-- PVC connection
-
-Data survives even after pod restart.
-
----
-
-# Storage Workflow
-
-```text
-Order Pod
-    ↓
-Volume Mount
-    ↓
-Persistent Volume Claim
-    ↓
-Persistent Volume
-    ↓
-Data Stored Permanently
-```
-
----
-
-# STEP 9.7 — Create ORDER SERVICE
-
-Create:
-
-```text
-order-service.yaml
-```
-
----
-
-# STEP 9.8 — Create Persistent Volume
-
-Go back to project folder.
-
-```bash
-cd ..
-```
-
-Create:
-
-```text
-pv.yaml
-```
-
----
-
-# What PV Does
-
-Persistent Volume creates storage inside Minikube.
-
-Storage Capacity:
-
-```text
-1GB
-```
-
----
-
-# STEP 9.9 — Create PVC
-
-Create:
-
-```text
-pvc.yaml
-```
-
----
-
-# What PVC Does
-
-PVC requests storage from PV.
-
-Connection:
-
-```text
-PVC → PV
-```
-
----
-
-# 🚀 STEP 10 — APPLY YAML FILES
-
-Now deploy everything.
-
----
-
-# STEP 10.1 — Apply PV and PVC
+# 🚀 STEP 6 — Apply Kubernetes YAML Files
 
 Apply Persistent Volume:
 
@@ -671,7 +393,7 @@ kubectl get pv
 kubectl get pvc
 ```
 
-Expected STATUS:
+Expected:
 
 ```text
 Bound
@@ -679,172 +401,34 @@ Bound
 
 ---
 
-# 📸 Screenshot to Add
+# 📸 Persistent Volume Created
 
-- PV created
-- PVC Bound
+![Persistent Volume](Screenshots/pv-created.png)
 
 ---
 
-# STEP 10.2 — Deploy Kubernetes Files
+# 📸 Persistent Volume Claim Bound
 
-Go inside k8s folder:
+![Persistent Volume Claim](Screenshots/pvc-bound.png)
+
+---
+
+# Deploy Kubernetes Files
 
 ```bash
 cd k8s
-```
-
----
-
-# Apply All YAML Files
-
-```bash
 kubectl apply -f .
 ```
 
 ---
 
-# Expected Output
+# 📸 Kubernetes Deployments Created
 
-```text
-deployment.apps/user-deployment created
-service/user-service created
-deployment.apps/product-deployment created
-service/product-service created
-deployment.apps/order-deployment created
-service/order-service created
-```
+![Deployments](Screenshots/deployments-created.png)
 
 ---
 
-# 📸 Screenshot to Add
-
-- Deployment creation successful
-
----
-
-# STEP 10.3 — Check Pods
-
-Run:
-
-```bash
-kubectl get pods
-```
-
-Expected:
-
-```text
-NAME                                  READY
-user-deployment-xxxxx                 1/1
-product-deployment-xxxxx              1/1
-order-deployment-xxxxx                1/1
-```
-
----
-
-# 📸 Screenshot to Add
-
-- Running Pods
-
----
-
-# STEP 10.4 — Check Services
-
-```bash
-kubectl get svc
-```
-
-You should see:
-
-```text
-user-service
-product-service
-order-service
-```
-
----
-
-# 📸 Screenshot to Add
-
-- Kubernetes services
-
----
-
-# STEP 10.5 — Access USER SERVICE
-
-```bash
-minikube service user-service --url
-```
-
-Expected Output:
-
-```text
-User Service Running
-```
-
----
-
-# STEP 10.6 — Access PRODUCT SERVICE
-
-```bash
-minikube service product-service --url
-```
-
-Expected:
-
-```text
-Product Service Running
-```
-
----
-
-# STEP 10.7 — Access ORDER SERVICE
-
-```bash
-minikube service order-service --url
-```
-
----
-
-# Write Data
-
-Open:
-
-```text
-http://127.0.0.1:52341/write
-```
-
-Expected:
-
-```text
-Data Written
-```
-
----
-
-# Read Data
-
-Open:
-
-```text
-http://127.0.0.1:52341/read
-```
-
-Expected:
-
-```text
-Order Saved
-```
-
----
-
-# 📸 Screenshot to Add
-
-- Browser outputs
-
----
-
-# 🚀 STEP 11 — Test Persistent Storage
+# 🚀 STEP 7 — Verify Kubernetes Resources
 
 ---
 
@@ -854,55 +438,153 @@ Order Saved
 kubectl get pods
 ```
 
-Copy ORDER pod name.
+---
 
-Example:
+# 📸 Running Pods
 
-```text
-order-deployment-67f9f8b9c8-abcde
+![Pods Running](Screenshots/get-pods.png)
+
+---
+
+# Check Services
+
+```bash
+kubectl get svc
 ```
+
+---
+
+# 📸 Running Services
+
+![Services Running](Screenshots/get-services.png)
+
+---
+
+# 🚀 STEP 8 — Access Applications
+
+---
+
+# USER SERVICE
+
+```bash
+minikube service user-service --url
+```
+
+---
+
+# 📸 User Service Output
+
+![User Service](Screenshots/user-service-browser.png)
+
+---
+
+# PRODUCT SERVICE
+
+```bash
+minikube service product-service --url
+```
+
+---
+
+# 📸 Product Service Output
+
+![Product Service](Screenshots/product-service-browser.png)
+
+---
+
+# ORDER SERVICE
+
+```bash
+minikube service order-service --url
+```
+
+---
+
+# 📸 Order Service Output
+
+![Order Service](Screenshots/order-service-browser.png)
+
+---
+
+# 🚀 STEP 9 — Test Persistent Storage
 
 ---
 
 # Delete Order Pod
 
 ```bash
-kubectl delete pod order-deployment-67f9f8b9c8-abcde
+kubectl delete pod <order-pod-name>
 ```
-
-Kubernetes automatically creates a new pod.
-
-Wait 30 seconds.
 
 ---
 
-# Verify Data Persistence
+# 📸 Pod Deleted Successfully
 
-Again open:
+![Pod Deleted](Screenshots/pod-delete.png)
+
+---
+
+# 📸 New Pod Created Automatically
+
+![New Pod](Screenshots/new-pod-created.png)
+
+---
+
+# Verify Persistence
+
+Open:
 
 ```text
 http://127.0.0.1:52341/read
 ```
 
-If output still shows:
+Expected:
 
 ```text
 Order Saved
 ```
 
-then Persistent Storage is working successfully.
+---
+
+# 📸 Persistent Data Verified
+
+![Persistent Storage](Screenshots/persistent-storage-success.png)
 
 ---
 
-# 📸 Screenshot to Add
-
-- Pod deletion
-- New pod creation
-- Persistent data output
+# 🚀 STEP 10 — Scaling and Monitoring
 
 ---
 
-# 📊 Final Kubernetes Deployment Flow
+# Scale Product Service
+
+```bash
+kubectl scale deployment product-deployment --replicas=4
+```
+
+---
+
+# 📸 Scaling Output
+
+![Scaling](Screenshots/scaling-output.png)
+
+---
+
+# Monitor Logs
+
+```bash
+kubectl logs <pod-name>
+```
+
+---
+
+# 📸 Logs Monitoring
+
+![Logs](Screenshots/logs-monitoring.png)
+
+---
+
+# 📊 Final Deployment Flow
 
 ```text
 Docker Images
@@ -973,5 +655,4 @@ This project provides complete hands-on experience with Docker and Kubernetes fo
 
 ## Samruddhi Pansare
 
---- change flow of file only remain as it is i used that  
-
+---
